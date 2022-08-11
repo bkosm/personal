@@ -1,8 +1,7 @@
 {
   "tasks": {
     "start": "deno run -A --watch=static/,routes/ dev.ts",
-    "install-puppeteer": "PUPPETEER_PRODUCT=chrome deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts",
-    "puppeteer-test": "deno test --allow-env --allow-run --allow-write --allow-read --allow-net"
+    "install-puppeteer": "PUPPETEER_PRODUCT=chrome deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts"
   },
   "importMap": "./import_map.json"
 }

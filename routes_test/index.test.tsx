@@ -1,4 +1,4 @@
-import { browserTest, assertStringIncludes, SNAPSHOT_DIR } from "../test.deps.ts";
+import { browserTest, assertSnapshot } from "../test.deps.ts";
 
 browserTest("index page", async (b, t) => {
   const page = await b.newPage();
@@ -11,13 +11,13 @@ browserTest("index page", async (b, t) => {
     const pElem = await page.waitForSelector("div > p");
     const pText = await pElem?.evaluate((el) => el.textContent);
 
-    assertStringIncludes(pText, "Welcome to `fresh`");
+    assertSnapshot(t, pText);
   });
 
   await t.step("visual requirements are met", async () => {
-    await page.screenshot({
-      fullPage: true,
-      path: `${SNAPSHOT_DIR}/index.png`,
-    });
+    // await page.screenshot({
+    //   fullPage: true,
+    //   path: `${SNAPSHOT_DIR}/index.png`,
+    // });
   });
 });

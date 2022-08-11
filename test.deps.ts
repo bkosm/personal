@@ -23,6 +23,7 @@ export {
   assertStringIncludes,
 } from "https://deno.land/std@0.150.0/testing/asserts.ts";
 export { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
+export { assertSnapshot } from "https://deno.land/std@0.151.0/testing/snapshot.ts";
 
 export function browserTest(name: string, fn: TestBody) {
   return Deno.test({
@@ -65,4 +66,6 @@ export function browserTest(name: string, fn: TestBody) {
   });
 }
 
-export const SNAPSHOT_DIR = `${path.dirname(path.fromFileUrl(import.meta.url))}/snapshots`;
+export const SNAPSHOT_DIR = `${path.dirname(
+  path.fromFileUrl(import.meta.url)
+)}/snapshots`;
