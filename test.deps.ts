@@ -4,7 +4,7 @@
 /// <reference lib="deno.ns" />
 
 import { TextLineStream } from "https://deno.land/std@0.150.0/streams/delimiter.ts";
-export { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
+import * as path from "https://deno.land/std@0.57.0/path/mod.ts";
 import {
   default as puppeteer,
   Browser,
@@ -22,6 +22,7 @@ export {
   assertEquals,
   assertStringIncludes,
 } from "https://deno.land/std@0.150.0/testing/asserts.ts";
+export { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
 
 export function browserTest(name: string, fn: TestBody) {
   return Deno.test({
@@ -63,3 +64,5 @@ export function browserTest(name: string, fn: TestBody) {
     sanitizeResources: false,
   });
 }
+
+export const SNAPSHOT_DIR = `${path.dirname(path.fromFileUrl(import.meta.url))}/snapshots`;
