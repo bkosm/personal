@@ -42,5 +42,5 @@ jobs:
       - uses: actions/checkout@v3
       - uses: denoland/deployctl@v1
         with:
-          project: bkosm
-          entrypoint: main.ts
+          project: "bkosm"
+          entrypoint: "./main.ts"
