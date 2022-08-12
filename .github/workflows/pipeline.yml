@@ -16,7 +16,7 @@ jobs:
           restore-keys: ${{ runner.os }}-deno-
           path: |
             /home/runner/.deno
-            /home/runner/.cache/deno/deps/https/deno.land
+            /home/runner/.cache/deno
       - name: install or update deno installation
         run: |
           export DENO_INSTALL="/home/runner/.deno"
@@ -29,17 +29,16 @@ jobs:
           echo "DENO_INSTALL=${DENO_INSTALL}" >> $GITHUB_ENV
           echo "PATH=${PATH}" >> $GITHUB_ENV
       - name: fetch any uncached dependencies
-        run: |
-          deno cache main.ts
+        run: deno cache main.ts
       - name: check lint
         continue-on-error: true
-        run: |
-          deno lint
+        run: deno lint
       - name: check formatting
         continue-on-error: true
-        run: |
-          deno fmt --check
+        run: deno fmt --check
       - name: install puppeteer
         run: deno task install-puppeteer
-      - name: run tests
+      - name: start webapp as container
+        uses: isbang/compose-action@v1.1.0
+      - name: run puppeteer tests
         run: deno test --allow-all
