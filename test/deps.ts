@@ -20,38 +20,44 @@ export {
 export { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
 export { assertSnapshot } from "https://deno.land/std@0.151.0/testing/snapshot.ts";
 
+export function runsInPipeline() {
+  return Deno.env.get("IS_PIPELINE") === "true";
+}
+
 export function intTest(name: string, fn: TestBody) {
   return Deno.test({
     name,
     async fn(t) {
-      const serverProcess = Deno.run({
-        cmd: ["deno", "run", "-A", "./main.ts"],
-        stdout: "piped",
-        stderr: "inherit",
-      });
+      if (!runsInPipeline()) {
+        const serverProcess = Deno.run({
+          cmd: ["deno", "run", "-A", "./main.ts"],
+          stdout: "piped",
+          stderr: "inherit",
+        });
 
-      beforeAll(async () => {
-        const lines = serverProcess.stdout.readable
-          .pipeThrough(new TextDecoderStream())
-          .pipeThrough(new TextLineStream());
+        beforeAll(async () => {
+          const lines = serverProcess.stdout.readable
+            .pipeThrough(new TextDecoderStream())
+            .pipeThrough(new TextLineStream());
 
-        let started = false;
-        for await (const line of lines) {
-          if (line.includes("Listening on http://")) {
-            started = true;
-            break;
+          let started = false;
+          for await (const line of lines) {
+            if (line.includes("Listening on http://")) {
+              started = true;
+              break;
+            }
           }
-        }
-        if (!started) {
-          throw new Error("Server didn't start up");
-        }
-      });
+          if (!started) {
+            throw new Error("Server didn't start up");
+          }
+        });
+
+        afterAll(async () => {
+          await serverProcess.close();
+        });
+      }
 
       await fn(t);
-
-      afterAll(async () => {
-        await serverProcess.close();
-      });
     },
     sanitizeOps: false,
     sanitizeResources: false,
