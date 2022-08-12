@@ -27,6 +27,7 @@ jobs:
       - continue-on-error: true
         run: deno fmt --check
       - run: deno task install-puppeteer
+      - uses: docker-practice/actions-setup-docker@master
       - uses: isbang/compose-action@v1.1.0
       - run: IS_PIPELINE=true deno test --allow-all
       - uses: actions/upload-artifact@v3
