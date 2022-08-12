@@ -1,0 +1,3 @@
+export const snapshot = {};
+
+snapshot[`index page 1`] = `"bkosm - fresh blog"`;
