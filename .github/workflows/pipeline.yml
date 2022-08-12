@@ -14,8 +14,8 @@ jobs:
           key: ${{ runner.os }}-deno-${{ hashFiles('**/*') }}
           restore-keys: ${{ runner.os }}-deno-
           path: |
-            /home/runner/.deno
-            /home/runner/.cache/deno
+            /Users/runner/hostedtoolcache/deno
+            /Users/runner/Library/Caches/deno/deno_puppeteer/chromium
       - uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
