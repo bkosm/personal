@@ -1,5 +1,5 @@
 import { afterAll } from "https://deno.land/std@0.148.0/testing/bdd.ts";
-import { intTest, assertSnapshot, assertTitle } from "../deps.ts";
+import { assertSnapshot, assertTitle, intTest } from "../deps.ts";
 import { assertVisualSnapshot } from "../regression.ts";
 import { default as puppeteer } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 
