@@ -35,5 +35,5 @@ cli/tests/.test_coverage/
 /tools/wpt/certs/index.txt*
 /tools/wpt/certs/serial*
 
-# snapshot candidates
-**/.candidate/*
+# snapshot diffs
+**/diff.*.png

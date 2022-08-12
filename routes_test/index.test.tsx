@@ -19,13 +19,6 @@ intTest("index page", async (t) => {
     waitUntil: "networkidle2",
   });
 
-  await t.step("text loads", async () => {
-    const pElem = await page.waitForSelector("div > p");
-    const pText = await pElem?.evaluate((el) => el.textContent);
-
-    assertSnapshot(t, pText);
-  });
-
   await t.step("visual requirements are met", async () => {
     await assertVisualSnapshot(page, "index1");
   });
