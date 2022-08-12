@@ -83,6 +83,7 @@ export async function assertVisualSnapshot(page: Page, id: string) {
     await page.screenshot({
       fullPage: true,
       path: candidatePath,
+      captureBeyondViewport: false,
     });
 
     const result = performVisualRegression(approvedPath, candidatePath);
@@ -109,6 +110,7 @@ export async function assertVisualSnapshot(page: Page, id: string) {
     await page.screenshot({
       fullPage: true,
       path: candidatePath,
+      captureBeyondViewport: false,
     });
     throw new AssertionError(
       `Created actual snapshot for ${id}, approve it manually by changing prefix to 'approved.'`,
