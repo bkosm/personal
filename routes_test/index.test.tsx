@@ -1,7 +1,16 @@
-import { browserTest, assertSnapshot } from "../test.deps.ts";
+import { afterAll } from "https://deno.land/std@0.148.0/testing/bdd.ts";
+import { assertSnapshot, intTest } from "../test/deps.ts";
+import { assertVisualSnapshot } from "../test/regression.ts";
+import { default as puppeteer } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 
-browserTest("index page", async (b, t) => {
-  const page = await b.newPage();
+intTest("index page", async (t) => {
+  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+
+  afterAll(async () => {
+    await browser.close();
+  });
+
+  const page = await browser.newPage();
 
   await page.goto("http://localhost:8000/", {
     waitUntil: "networkidle2",
@@ -15,9 +24,6 @@ browserTest("index page", async (b, t) => {
   });
 
   await t.step("visual requirements are met", async () => {
-    // await page.screenshot({
-    //   fullPage: true,
-    //   path: `${SNAPSHOT_DIR}/index.png`,
-    // });
+    await assertVisualSnapshot(page, "index1");
   });
 });

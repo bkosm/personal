@@ -4,17 +4,12 @@
 /// <reference lib="deno.ns" />
 
 import { TextLineStream } from "https://deno.land/std@0.150.0/streams/delimiter.ts";
-import * as path from "https://deno.land/std@0.57.0/path/mod.ts";
-import {
-  default as puppeteer,
-  Browser,
-} from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 import {
   afterAll,
   beforeAll,
 } from "https://deno.land/std@0.148.0/testing/bdd.ts";
 
-type TestBody = (b: Browser, t: Deno.TestContext) => Promise<void>;
+type TestBody = (t: Deno.TestContext) => Promise<void>;
 
 export { describe, it } from "https://deno.land/std@0.148.0/testing/bdd.ts";
 export {
@@ -25,7 +20,7 @@ export {
 export { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
 export { assertSnapshot } from "https://deno.land/std@0.151.0/testing/snapshot.ts";
 
-export function browserTest(name: string, fn: TestBody) {
+export function intTest(name: string, fn: TestBody) {
   return Deno.test({
     name,
     async fn(t) {
@@ -52,12 +47,9 @@ export function browserTest(name: string, fn: TestBody) {
         }
       });
 
-      const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
-
-      await fn(browser, t);
+      await fn(t);
 
       afterAll(async () => {
-        await browser.close();
         await serverProcess.close();
       });
     },
@@ -65,7 +57,3 @@ export function browserTest(name: string, fn: TestBody) {
     sanitizeResources: false,
   });
 }
-
-export const SNAPSHOT_DIR = `${path.dirname(
-  path.fromFileUrl(import.meta.url)
-)}/snapshots`;
