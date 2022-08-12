@@ -29,7 +29,7 @@ const fileExists = async (filename: string): Promise<boolean> => {
 function performVisualRegression(
   baselineImagePath: string,
   candidateImagePath: string,
-  significanceThreshold = 0.01,
+  significanceThreshold = 0.01
 ): RegressionResult {
   const pngBaseline = decode(Deno.readFileSync(baselineImagePath));
   const pngCandidate = decode(Deno.readFileSync(candidateImagePath));
@@ -56,22 +56,21 @@ function performVisualRegression(
     {
       threshold: significanceThreshold,
       enableMinimap: true,
-    },
+    }
   );
 
   // Save the diff if the cumulated delta is significant
   if (result.cumulatedDiff > 0) {
+    console.log({ name: "visual-regression-result", result });
     return { type: "regression-failure", diffImage: diffImageData };
   } else {
     return { type: "success" };
   }
 }
 
-export const SNAPSHOT_DIR = `${
-  dirname(
-    fromFileUrl(import.meta.url),
-  )
-}/snapshots`;
+export const SNAPSHOT_DIR = `${dirname(
+  fromFileUrl(import.meta.url)
+)}/snapshots`;
 
 export async function assertVisualSnapshot(page: Page, id: string) {
   const approvedPath = `${SNAPSHOT_DIR}/approved.${id}.png`;
@@ -95,12 +94,12 @@ export async function assertVisualSnapshot(page: Page, id: string) {
         const { image, width, height } = result.diffImage;
         Deno.writeFileSync(diffPath, encode(image, width, height));
         throw new AssertionError(
-          "Visual regression failed, diff image was created",
+          "Visual regression failed, diff image was created"
         );
       }
       case "image-failure": {
         throw new AssertionError(
-          "Visual regression failed, the image dimensions are now different",
+          "Visual regression failed, the image dimensions are now different"
         );
       }
     }
@@ -110,7 +109,7 @@ export async function assertVisualSnapshot(page: Page, id: string) {
       path: candidatePath,
     });
     throw new AssertionError(
-      `Created actual snapshot for ${id}, approve it manually by changing prefix to 'approved.'`,
+      `Created actual snapshot for ${id}, approve it manually by changing prefix to 'approved.'`
     );
   }
 }

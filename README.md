@@ -1,4 +1,5 @@
-# fresh project
+[![CICD](https://github.com/bkosm/personal/actions/workflows/pipeline.yml/badge.svg)](https://github.com/bkosm/personal/actions/workflows/pipeline.yml)
+# personal webapp fresh project
 
 ### Usage
 

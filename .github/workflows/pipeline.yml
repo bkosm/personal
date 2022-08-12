@@ -28,8 +28,9 @@ jobs:
           )
           echo "DENO_INSTALL=${DENO_INSTALL}" >> $GITHUB_ENV
           echo "PATH=${PATH}" >> $GITHUB_ENV
-      - name: fetch any uncached dependencies
-        run: deno cache main.ts
+      # this has no effect for now, as a docker image is built on every run
+      # - name: fetch any uncached dependencies
+      #   run: deno cache main.ts
       - name: check lint
         continue-on-error: true
         run: deno lint
@@ -42,3 +43,8 @@ jobs:
         uses: isbang/compose-action@v1.1.0
       - name: run puppeteer tests
         run: deno test --allow-all
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: snapshots
+          path: test/snapshots
