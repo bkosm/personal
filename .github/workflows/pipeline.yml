@@ -19,9 +19,8 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: vx.x.x
-      # this has no effect for now, as a docker image is built on every run
-      # - name: fetch any uncached dependencies
-      #   run: deno cache main.ts
+      - name: fetch any uncached dependencies
+        run: deno cache main.ts
       - continue-on-error: true
         run: deno lint
       - continue-on-error: true

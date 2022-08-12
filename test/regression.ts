@@ -30,6 +30,7 @@ function performVisualRegression(
   baselineImagePath: string,
   candidateImagePath: string,
   significanceThreshold = 0.01,
+  cumulatedDiffThreshold = 138,
 ): RegressionResult {
   const pngBaseline = decode(Deno.readFileSync(baselineImagePath));
   const pngCandidate = decode(Deno.readFileSync(candidateImagePath));
@@ -60,7 +61,7 @@ function performVisualRegression(
   );
 
   // Save the diff if the cumulated delta is significant
-  if (result.cumulatedDiff > 0) {
+  if (result.cumulatedDiff > cumulatedDiffThreshold) {
     console.log({ name: "visual-regression-result", result });
     return { type: "regression-failure", diffImage: diffImageData };
   } else {
