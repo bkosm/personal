@@ -9,40 +9,26 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: cache deno installation and deno.land dependencies
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
         with:
           key: ${{ runner.os }}-deno-${{ hashFiles('**/*') }}
           restore-keys: ${{ runner.os }}-deno-
           path: |
             /home/runner/.deno
             /home/runner/.cache/deno
-      - name: install or update deno installation
-        run: |
-          export DENO_INSTALL="/home/runner/.deno"
-          export PATH="${DENO_INSTALL}/bin:${PATH}"
-          mkdir -p "${DENO_INSTALL}"
-          deno upgrade || (
-            curl -fsSL https://deno.land/x/install/install.sh > "${DENO_INSTALL}/.sh";
-            sh "${DENO_INSTALL}/.sh"
-          )
-          echo "DENO_INSTALL=${DENO_INSTALL}" >> $GITHUB_ENV
-          echo "PATH=${PATH}" >> $GITHUB_ENV
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: vx.x.x
       # this has no effect for now, as a docker image is built on every run
       # - name: fetch any uncached dependencies
       #   run: deno cache main.ts
-      - name: check lint
-        continue-on-error: true
+      - continue-on-error: true
         run: deno lint
-      - name: check formatting
-        continue-on-error: true
+      - continue-on-error: true
         run: deno fmt --check
-      - name: install puppeteer
-        run: deno task install-puppeteer
-      - name: start webapp as container
-        uses: isbang/compose-action@v1.1.0
-      - name: run puppeteer tests
-        run: IS_PIPELINE=true deno test --allow-all
+      - run: deno task install-puppeteer
+      - uses: isbang/compose-action@v1.1.0
+      - run: IS_PIPELINE=true deno test --allow-all
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
