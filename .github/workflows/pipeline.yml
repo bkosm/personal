@@ -1,0 +1,45 @@
+name: CICD
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: cache deno installation and deno.land dependencies
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/*') }}
+          restore-keys: ${{ runner.os }}-deno-
+          path: |
+            /home/runner/.deno
+            /home/runner/.cache/deno/deps/https/deno.land
+      - name: install or update deno installation
+        run: |
+          export DENO_INSTALL="/home/runner/.deno"
+          export PATH="${DENO_INSTALL}/bin:${PATH}"
+          mkdir -p "${DENO_INSTALL}"
+          deno upgrade || (
+            curl -fsSL https://deno.land/x/install/install.sh > "${DENO_INSTALL}/.sh";
+            sh "${DENO_INSTALL}/.sh"
+          )
+          echo "DENO_INSTALL=${DENO_INSTALL}" >> $GITHUB_ENV
+          echo "PATH=${PATH}" >> $GITHUB_ENV
+      - name: fetch any uncached dependencies
+        run: |
+          deno cache main.ts
+      - name: check lint
+        continue-on-error: true
+        run: |
+          deno lint
+      - name: check formatting
+        continue-on-error: true
+        run: |
+          deno fmt --check
+      - name: install puppeteer
+        run: deno task install-puppeteer
+      - name: run tests
+        run: deno test --allow-all
