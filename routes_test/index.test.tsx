@@ -4,7 +4,10 @@ import { assertVisualSnapshot } from "../test/regression.ts";
 import { default as puppeteer } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 
 intTest("index page", async (t) => {
-  const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox"],
+    defaultViewport: { width: 1920, height: 1080 },
+  });
 
   afterAll(async () => {
     await browser.close();
