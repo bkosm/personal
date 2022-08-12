@@ -42,7 +42,7 @@ jobs:
       - name: start webapp as container
         uses: isbang/compose-action@v1.1.0
       - name: run puppeteer tests
-        run: deno test --allow-all
+        run: IS_PIPELINE=true deno test --allow-all
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
