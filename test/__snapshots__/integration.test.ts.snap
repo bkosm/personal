@@ -1,0 +1,3 @@
+export const snapshot = {};
+
+snapshot[`webdriver tests 1`] = `"bkosm - fresh blog"`;

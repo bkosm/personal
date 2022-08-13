@@ -32,28 +32,23 @@ export function intTest(name: string, fn: TestBody) {
         stderr: "inherit",
       });
 
-      beforeAll(async () => {
-        const lines = serverProcess.stdout.readable
-          .pipeThrough(new TextDecoderStream())
-          .pipeThrough(new TextLineStream());
+      const lines = serverProcess.stdout.readable
+        .pipeThrough(new TextDecoderStream())
+        .pipeThrough(new TextLineStream());
 
-        let started = false;
-        for await (const line of lines) {
-          if (line.includes("Listening on http://")) {
-            started = true;
-            break;
-          }
+      let started = false;
+      for await (const line of lines) {
+        if (line.includes("Listening on http://")) {
+          started = true;
+          break;
         }
-        if (!started) {
-          throw new Error("Server didn't start up");
-        }
-      });
-
-      afterAll(async () => {
-        await serverProcess.close();
-      });
+      }
+      if (!started) {
+        throw new Error("Server didn't start up");
+      }
 
       await fn(t);
+      await serverProcess.close();
     },
     sanitizeOps: false,
     sanitizeResources: false,
