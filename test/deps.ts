@@ -1,13 +1,4 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
-
 import { TextLineStream } from "https://deno.land/std@0.150.0/streams/delimiter.ts";
-import {
-  afterAll,
-  beforeAll,
-} from "https://deno.land/std@0.148.0/testing/bdd.ts";
 import { Page } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 
 type TestBody = (t: Deno.TestContext) => Promise<void>;
