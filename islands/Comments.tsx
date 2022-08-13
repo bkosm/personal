@@ -12,7 +12,7 @@ export default function Comments(props: Props) {
     <Gitalk
       clientID={props.gitalkClientID ?? "1"}
       clientSecret={props.gitalkClientSecret ?? "none"}
-      repo="bkosm/personal"
+      repo="personal"
       owner="bkosm"
       admin={["bkosm"]}
       pagerDirection="first"
