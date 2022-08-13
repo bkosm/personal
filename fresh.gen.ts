@@ -4,13 +4,16 @@
 
 import * as $0 from "./routes/index.tsx";
 import * as $1 from "./routes/posts/[name].tsx";
+import * as $$0 from "./islands/Comments.tsx";
 
 const manifest = {
   routes: {
     "./routes/index.tsx": $0,
     "./routes/posts/[name].tsx": $1,
   },
-  islands: {},
+  islands: {
+    "./islands/Comments.tsx": $$0,
+  },
   baseUrl: import.meta.url,
 };
 

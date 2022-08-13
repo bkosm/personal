@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "preact";
+import { Fragment, h } from "preact";
 import { tw } from "@twind";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Post } from "../../components/Post.tsx";
@@ -11,6 +11,7 @@ import { clean, init } from "https://deno.land/x/ammonia@0.3.1/mod.ts";
 import { capitalize, replace } from "lodash";
 import { redirectHomeResponse } from "../../utils/errors.ts";
 import { PostStats, readStats } from "../../components/PostStats.tsx";
+import Comments from "../../islands/Comments.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -51,6 +52,10 @@ export default function PostPage(props: PageProps) {
           <PostStats stats={props.data.stats} />
         </div>
         <Post sanitizedMarkup={props.data.sanitizedMarkup} />
+        <div class={tw`my-10`}>
+          <Fragment>kek</Fragment>
+          <Comments />
+        </div>
       </article>
       <Footer />
     </main>
