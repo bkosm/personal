@@ -10,9 +10,6 @@ interface Props extends h.JSX.HTMLAttributes<HTMLDivElement> {
 export function Post(props: Props) {
   return (
     <div
-      data-color-mode={props.mode ?? "light"}
-      data-light-theme="light"
-      data-dark-theme="dark"
       class="markdown-body"
       dangerouslySetInnerHTML={{ __html: props.sanitizedMarkup }}
     >
