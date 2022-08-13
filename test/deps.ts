@@ -1,5 +1,5 @@
 import { TextLineStream } from "https://deno.land/std@0.150.0/streams/delimiter.ts";
-import { Page, Browser } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
+import { Browser, Page } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 import { default as puppeteer } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 
 type TestBody = (t: Deno.TestContext, b: Browser) => Promise<void>;
