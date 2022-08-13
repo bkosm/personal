@@ -29,7 +29,7 @@ const fileExists = async (filename: string): Promise<boolean> => {
 function performVisualRegression(
   baselineImagePath: string,
   candidateImagePath: string,
-  significanceThreshold = 1,
+  significanceThreshold = 0.8,
   cumulatedDiffThreshold = 100,
 ): RegressionResult {
   const pngBaseline = decode(Deno.readFileSync(baselineImagePath));
