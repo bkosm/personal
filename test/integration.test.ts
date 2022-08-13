@@ -1,6 +1,7 @@
 import { assertTitle, intTest } from "./deps.ts";
 import { assertVisualSnapshot } from "./regression.ts";
 import { assertSnapshot } from "https://deno.land/std@0.151.0/testing/snapshot.ts";
+import { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
 
 intTest("webdriver tests", async (t, b) => {
   const p = await b.newPage();
@@ -8,7 +9,9 @@ intTest("webdriver tests", async (t, b) => {
 
   // deno-lint-ignore no-explicit-any
   const open = async (page: any, path: any) =>
-    await page.goto(`http://localhost:8000${path}`, { waitUntil: "networkidle2" });
+    await page.goto(`http://localhost:8000${path}`, {
+      waitUntil: "networkidle2",
+    });
 
   // Index page
   await open(p, "/");
@@ -25,6 +28,7 @@ intTest("webdriver tests", async (t, b) => {
   await open(p, "/posts/test-page");
 
   await t.step("post page - visual requirements are met", async () => {
+    await delay(100);
     await assertVisualSnapshot(p, "posts1");
   });
 
