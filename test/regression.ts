@@ -30,7 +30,7 @@ function performVisualRegression(
   baselineImagePath: string,
   candidateImagePath: string,
   significanceThreshold = 0.5,
-  cumulatedDiffThreshold = 2500,
+  cumulatedDiffThreshold = 5100,
 ): RegressionResult {
   const pngBaseline = decode(Deno.readFileSync(baselineImagePath));
   const pngCandidate = decode(Deno.readFileSync(candidateImagePath));
