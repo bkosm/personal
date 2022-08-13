@@ -5,8 +5,11 @@ on:
     branches: [master]
 
 jobs:
-  test:
+  test-deploy:
     runs-on: macos-latest # because linux generates different snapshots with puppeteer
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -32,14 +35,7 @@ jobs:
         with:
           name: snapshots
           path: test/snapshots
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    needs: test
-    steps:
-      - uses: actions/checkout@v3
+            - uses: actions/checkout@v3
       - uses: denoland/deployctl@v1
         with:
           project: "bkosm"
