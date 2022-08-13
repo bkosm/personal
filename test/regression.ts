@@ -73,7 +73,7 @@ export const SNAPSHOT_DIR = `${
   dirname(
     fromFileUrl(import.meta.url),
   )
-}/snapshots`;
+}/__snapshots__`;
 
 export async function assertVisualSnapshot(page: Page, id: string) {
   const approvedPath = `${SNAPSHOT_DIR}/approved.${id}.png`;
