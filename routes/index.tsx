@@ -19,9 +19,7 @@ export default function Home() {
         below!
       </p>
 
-      {[...Array(10)].map((_, i) => (
-        <PostPreview key={`post-${i}`} />
-      ))}
+      {[...Array(10)].map((_, i) => <PostPreview key={`post-${i}`} />)}
 
       <Footer />
     </div>

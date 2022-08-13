@@ -15,6 +15,7 @@ export function Post(props: Props) {
       data-dark-theme="dark"
       class="markdown-body"
       dangerouslySetInnerHTML={{ __html: props.sanitizedMarkup }}
-    ></div>
+    >
+    </div>
   );
 }

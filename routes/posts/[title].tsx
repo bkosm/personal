@@ -15,7 +15,7 @@ export const handler: Handlers = {
 
     const decoder = new TextDecoder("utf-8");
     const markdown = decoder.decode(
-      await Deno.readFile(`./static/posts/${file}.md`)
+      await Deno.readFile(`./static/posts/${file}.md`),
     );
 
     const markup = render(markdown);
