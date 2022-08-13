@@ -28,7 +28,7 @@ intTest("webdriver tests", async (t, b) => {
   await open(p, "/posts/test-page");
 
   await t.step("post page - visual requirements are met", async () => {
-    await delay(100);
+    await delay(200);
     await assertVisualSnapshot(p, "posts1");
   });
 
