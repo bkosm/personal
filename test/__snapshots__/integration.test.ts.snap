@@ -1,3 +1,5 @@
 export const snapshot = {};
 
 snapshot[`webdriver tests 1`] = `"bkosm - fresh blog"`;
+
+snapshot[`webdriver tests 2`] = `"http://localhost:8000/"`;

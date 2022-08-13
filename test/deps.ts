@@ -1,7 +1,8 @@
 import { TextLineStream } from "https://deno.land/std@0.150.0/streams/delimiter.ts";
-import { Page } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
+import { Page, Browser } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
+import { default as puppeteer } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
 
-type TestBody = (t: Deno.TestContext) => Promise<void>;
+type TestBody = (t: Deno.TestContext, b: Browser) => Promise<void>;
 
 export { describe, it } from "https://deno.land/std@0.148.0/testing/bdd.ts";
 export {
@@ -37,9 +38,14 @@ export function intTest(name: string, fn: TestBody) {
       if (!started) {
         throw new Error("Server didn't start up");
       }
+      const browser = await puppeteer.launch({
+        args: ["--no-sandbox"],
+      });
 
-      await fn(t);
+      await fn(t, browser);
+
       await serverProcess.close();
+      await browser.close();
     },
     sanitizeOps: false,
     sanitizeResources: false,
