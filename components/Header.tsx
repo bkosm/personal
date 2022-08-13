@@ -2,10 +2,14 @@
 import { h } from "preact";
 import { Head as FreshHead } from "$fresh/runtime.ts";
 
-export function Head(props: h.JSX.HTMLAttributes<HTMLHeadElement>) {
+interface Props extends h.JSX.HTMLAttributes<HTMLHeadElement> {
+  title?: string;
+}
+
+export function Header(props: Props) {
   return (
     <FreshHead {...props}>
-      <title>bkosm - fresh blog</title>
+      <title>{props.title ?? "bkosm - fresh blog"}</title>
       <meta
         name="description"
         content="bkosm personal blog page implemented with Fresh framework"

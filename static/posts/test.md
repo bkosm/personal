@@ -24,8 +24,6 @@ this is a code block
 
 [this is a link](https://www.google.com)
 
-![this is an internal image](../static/logo.svg)
-
 ![this is an external image](https://wpstatic.gymbeam.com/blog/wp-content/uploads/mageblog/arnold-schwarzenegger-1920x1080.jpg)
 
-<img src="https://wpstatic.gymbeam.com/blog/wp-content/uploads/mageblog/arnold-schwarzenegger-1920x1080.jpg" width=200 />
+<img alt="this is a sized img" src="https://wpstatic.gymbeam.com/blog/wp-content/uploads/mageblog/arnold-schwarzenegger-1920x1080.jpg" width=200 />
