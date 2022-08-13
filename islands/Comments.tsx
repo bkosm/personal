@@ -1,19 +1,17 @@
 /** @jsx h */
 import { Fragment, h, render } from "preact";
-import { tw } from "@twind";
 import { useEffect } from "preact/hooks";
 
-import gitalk from "https://cdn.skypack.dev/gitalk";
-import o from "https://deno.land/x/lz4@v0.1.2/wasm.js";
-
-// deno-lint-ignore no-empty-interface
-interface Props extends h.JSX.HTMLAttributes<HTMLDivElement> {}
+interface Props {
+  gitalkClientID?: string;
+  gitalkClientSecret?: string;
+}
 
 export default function Comments(props: Props) {
   return (
     <Gitalk
-      clientID="1"
-      clientSecret="secret"
+      clientID={props.gitalkClientID ?? "1"}
+      clientSecret={props.gitalkClientSecret ?? "none"}
       repo="bkosm/personal"
       owner="bkosm"
       admin={["bkosm"]}

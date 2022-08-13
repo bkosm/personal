@@ -53,8 +53,10 @@ export default function PostPage(props: PageProps) {
         </div>
         <Post sanitizedMarkup={props.data.sanitizedMarkup} />
         <div class={tw`my-10`}>
-          <Fragment>kek</Fragment>
-          <Comments />
+          <Comments
+            gitalkClientID={Deno.env.get("GITALK_CLIENT_ID")}
+            gitalkClientSecret={Deno.env.get("GITALK_CLIENT_SECRET")}
+          />
         </div>
       </article>
       <Footer />
