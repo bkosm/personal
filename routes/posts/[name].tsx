@@ -10,17 +10,20 @@ import { clean, init } from "https://deno.land/x/ammonia@0.3.1/mod.ts";
 
 import { capitalize, replace } from "lodash";
 import { redirectHomeResponse } from "../../utils/errors.ts";
-import { PostStats, readStats } from "../../components/PostStats.tsx";
+import { PostStats, PostStatsInfo } from "../../components/PostStats.tsx";
 import Comments from "../../islands/Comments.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
     const file = new URL(req.url).pathname.split("/")[2];
     const filename = `./static/posts/${file}.md`;
+    const metadataFile = `./static/posts/${file}.json`;
 
     let fileContent;
+    let metadataContent;
     try {
       fileContent = await Deno.readFile(filename);
+      metadataContent = await Deno.readFile(metadataFile);
     } catch (e) {
       if (e instanceof Deno.errors.NotFound) {
         return redirectHomeResponse();
@@ -29,13 +32,20 @@ export const handler: Handlers = {
       }
     }
 
-    const markdown = new TextDecoder("utf-8").decode(fileContent);
-    const markup = render(markdown);
-    await init();
-    const sanitizedMarkup = clean(markup);
-    const stats = readStats(await Deno.stat(filename));
+    const decoder = new TextDecoder("utf-8");
+    const markdown = decoder.decode(fileContent);
+    const metadata = JSON.parse(decoder.decode(metadataContent));
 
-    return ctx.render({ sanitizedMarkup, stats });
+    const markup = render(markdown);
+    const stats = {
+      name: file,
+      bytes: (await Deno.stat(filename)).size,
+      creationDate: new Date(metadata.creationDate),
+      lastUpdate: new Date(metadata.lastUpdate),
+    } as PostStatsInfo;
+
+    await init();
+    return ctx.render({ sanitizedMarkup: clean(markup), stats });
   },
 };
 
@@ -54,6 +64,7 @@ export default function PostPage(props: PageProps) {
         <Post sanitizedMarkup={props.data.sanitizedMarkup} />
         <div class={tw`my-10`}>
           <Comments
+            issueName={props.data.stats.name}
             gitalkClientID={Deno.env.get("GITALK_CLIENT_ID")}
             gitalkClientSecret={Deno.env.get("GITALK_CLIENT_SECRET")}
           />

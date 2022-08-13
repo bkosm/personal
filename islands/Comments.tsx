@@ -3,6 +3,7 @@ import { Fragment, h, render } from "preact";
 import { useEffect } from "preact/hooks";
 
 interface Props {
+  issueName: string;
   gitalkClientID?: string;
   gitalkClientSecret?: string;
 }
@@ -16,7 +17,7 @@ export default function Comments(props: Props) {
       owner="bkosm"
       admin={["bkosm"]}
       pagerDirection="first"
-      title="Comments"
+      title={props.issueName}
     />
   );
 }
