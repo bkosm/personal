@@ -86,7 +86,7 @@ export async function assertVisualSnapshot(page: Page, id: string) {
 
   if (await fileExists(approvedPath)) {
     await page.screenshot({
-      fullPage: true,
+      fullPage: false, // TODO: there is a 5px diff between local&runner, maybe fix with scrolling
       path: candidatePath,
       captureBeyondViewport: false,
     });
@@ -113,7 +113,7 @@ export async function assertVisualSnapshot(page: Page, id: string) {
     }
   } else {
     await page.screenshot({
-      fullPage: true,
+      fullPage: false,
       path: candidatePath,
       captureBeyondViewport: false,
     });

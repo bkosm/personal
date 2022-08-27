@@ -60,3 +60,7 @@ export async function assertTitle(t: Deno.TestContext, page: Page) {
 }
 
 export const name = (s: string) => ({ name: s });
+
+export const scrollDown = (p: Page): Promise<void> => {
+  return p.evaluate("window.scrollBy(0, document.body.scrollHeight)");
+}

@@ -1,4 +1,4 @@
-import { assertTitle, intTest, name } from "./deps.ts";
+import { assertTitle, intTest, name, scrollDown } from "./deps.ts";
 import { assertVisualSnapshot } from "./regression.ts";
 import { assertSnapshot } from "https://deno.land/std@0.151.0/testing/snapshot.ts";
 import { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
@@ -30,6 +30,8 @@ intTest("webdriver tests", async (t, b) => {
   await t.step("post page - visual requirements are met", async () => {
     await delay(200);
     await assertVisualSnapshot(p, "posts1");
+    await scrollDown(p);
+    await assertVisualSnapshot(p, "posts2");
   });
 
   // Invalid page
