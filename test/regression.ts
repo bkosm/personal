@@ -8,7 +8,7 @@ type ImageData = { image: Uint8Array; width: number; height: number };
 type RegressionResult =
   | { type: "success" }
   | { type: "regression-failure"; diffImage: ImageData }
-  | { type: "image-failure" };
+  | { type: "image-failure"; size: { width: number; height: number } };
 
 const fileExists = async (filename: string): Promise<boolean> => {
   try {
@@ -38,7 +38,11 @@ function performVisualRegression(
   const { width, height } = pngBaseline;
 
   if (width !== pngCandidate.width || height !== pngCandidate.height) {
-    return { type: "image-failure" };
+    console.log({ pngBaseline, pngCandidate });
+    return {
+      type: "image-failure",
+      size: { width: pngCandidate.width, height: pngCandidate.height },
+    };
   }
 
   const diffImageData: ImageData = {
