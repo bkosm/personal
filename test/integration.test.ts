@@ -1,4 +1,4 @@
-import { assertTitle, intTest } from "./deps.ts";
+import { assertTitle, intTest, name } from "./deps.ts";
 import { assertVisualSnapshot } from "./regression.ts";
 import { assertSnapshot } from "https://deno.land/std@0.151.0/testing/snapshot.ts";
 import { delay } from "https://deno.land/std@0.150.0/async/delay.ts";
@@ -36,6 +36,6 @@ intTest("webdriver tests", async (t, b) => {
   await open(p, "/posts/whoops-not-gonna-happen");
 
   await t.step("invalid post page - redirects home", () => {
-    assertSnapshot(t, p.url());
+    assertSnapshot(t, p.url(), name("redirect url"));
   });
 });

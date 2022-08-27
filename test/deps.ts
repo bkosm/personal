@@ -56,5 +56,7 @@ export async function assertTitle(t: Deno.TestContext, page: Page) {
   const elem = await page.waitForSelector("head > title");
   const text = await elem?.evaluate((el) => el.textContent);
 
-  assertSnapshot(t, text);
+  assertSnapshot(t, text, name('page title'));
 }
+
+export const name = (s: string) => ({ name: s });

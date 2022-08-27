@@ -42,3 +42,7 @@ deno task update-snapshots
 ```
 
 ---
+
+## Generated snapshots preview
+
+Can be found [here](/test/__snapshots__/README.md)!
