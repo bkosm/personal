@@ -8,8 +8,11 @@
   - hosted for free on [deno deploy](https://deno.com/deploy)
   - comments powered by [gitalk](https://github.com/gitalk/gitalk)
 - posts written in pure markdown
-- testing automated with simple self-made [visual regression tests](https://medium.com/loftbr/visual-regression-testing-eb74050f3366)
-  - following the [approval test](https://www.methodsandtools.com/archive/approvaltest.php) approach
+- testing automated with simple self-made
+  [visual regression tests](https://medium.com/loftbr/visual-regression-testing-eb74050f3366)
+  - following the
+    [approval test](https://www.methodsandtools.com/archive/approvaltest.php)
+    approach
 - super fast, lighthouse loves it
 - pipeline'd all the way to production
 

@@ -1,14 +1,25 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
+import { formatPostName } from "../utils/common.ts";
 
-// deno-lint-ignore no-empty-interface
-interface Props extends h.JSX.HTMLAttributes<HTMLDivElement> {}
+interface Props extends h.JSX.HTMLAttributes<HTMLAreaElement> {
+  name: string;
+  lastModified: Date;
+}
 
 export function PostPreview(props: Props) {
   return (
-    <div {...props} class={tw`px-2 py-1 border(gray-100 2) hover:bg-gray-200`}>
-      Hi!
-    </div>
+    <a
+      {...props}
+      class={tw`flex justify-between px-2 py-1 border(gray-100 2) hover:bg-gray-200 flex`}
+      href={`/posts/${props.name}`}
+    >
+      <div>{formatPostName(props.name)}</div>
+      <div>
+        Last modified at{" "}
+        <span class={tw`font-bold`}>{props.lastModified.toLocaleString()}</span>
+      </div>
+    </a>
   );
 }
