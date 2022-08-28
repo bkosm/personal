@@ -9,10 +9,15 @@ export function Footer() {
     >
       <div>
         Made with 💖 and 🍋,{" "}
-        <img
-          class={tw`inline`}
-          src="https://github.com/bkosm/personal/actions/workflows/pipeline.yml/badge.svg"
-        />
+        <a
+          target="_blank"
+          href="https://github.com/bkosm/personal/actions/workflows/pipeline.yml"
+        >
+          <img
+            class={tw`inline`}
+            src="https://github.com/bkosm/personal/actions/workflows/pipeline.yml/badge.svg"
+          />
+        </a>
       </div>
 
       <a
