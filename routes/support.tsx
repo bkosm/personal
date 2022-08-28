@@ -4,6 +4,7 @@ import { tw } from "@twind";
 import { PageProps } from "$fresh/server.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
+import Donation from "../islands/Donation.tsx";
 
 export default function SupportPage(props: PageProps) {
   const title = `Support me! - bkosm`;
@@ -26,6 +27,7 @@ export default function SupportPage(props: PageProps) {
         >
           Hellow! Gib me moneys!
         </article>
+        <Donation />
         <Footer />
       </div>
     </Fragment>
