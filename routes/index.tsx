@@ -19,7 +19,7 @@ export const handler: Handlers = {
         posts = {
           ...posts,
           [postName]: JSON.parse(
-            await Deno.readTextFile(`${path}/${postName}.json`)
+            await Deno.readTextFile(`${path}/${postName}.json`),
           ),
         };
       }
@@ -30,7 +30,7 @@ export const handler: Handlers = {
 };
 
 export default function Home(
-  props: PageProps<{ posts: { [postName: string]: { lastUpdate: string } } }>
+  props: PageProps<{ posts: { [postName: string]: { lastUpdate: string } } }>,
 ) {
   return (
     <Fragment>

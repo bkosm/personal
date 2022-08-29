@@ -20,7 +20,10 @@ export function Navbar(props: Props) {
         />
       </a>
 
-      <a href="/support" class={tw`m-auto font-semibold transition-all hover:text-gray-400`}>
+      <a
+        href="/support"
+        class={tw`m-auto font-semibold transition-all hover:text-gray-400`}
+      >
         SUPPORT
       </a>
     </div>
