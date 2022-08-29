@@ -12,18 +12,17 @@ export default function SupportPage(props: PageProps) {
 
   return (
     <Fragment>
+      <Header title={title} />
       <Navbar />
-      <div class={tw`relative`}>
-        <Header title={title} />
-
+      <div class={tw`p-4 mx-auto max-w-screen-md`}>
         <article
           class={tw`md:px-20 sm:px-16 px-10 pb-28 2xl:px-60 xl:px-50 lg:px-36`}
         >
           Hellow! Gib me moneys!
         </article>
         <Donation />
-        <Footer />
       </div>
+      <Footer />
     </Fragment>
   );
 }

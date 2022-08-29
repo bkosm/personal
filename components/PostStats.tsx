@@ -11,7 +11,7 @@ export function PostStats(props: Props) {
   return (
     <div
       {...omit(props, "stats")}
-      class={tw`px-2 py-1 border(gray-100 2) hover:bg-gray-200`}
+      class={tw`px-2 py-1 transition-all hover:bg-gray-200`}
     >
       <p>
         Created at <b>{props.stats.creationDate.toLocaleString()}</b>

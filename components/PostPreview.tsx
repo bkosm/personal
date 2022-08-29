@@ -12,7 +12,7 @@ export function PostPreview(props: Props) {
   return (
     <a
       {...props}
-      class={tw`flex justify-between px-2 py-1 border(gray-100 2) hover:bg-gray-200 flex`}
+      class={tw`flex justify-between px-2 py-1 border(gray-100 2) transition-all hover:bg-gray-200 flex`}
       href={`/posts/${props.name}`}
     >
       <div>{formatPostName(props.name)}</div>
