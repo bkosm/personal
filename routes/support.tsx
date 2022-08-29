@@ -5,20 +5,14 @@ import { PageProps } from "$fresh/server.ts";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import Donation from "../islands/Donation.tsx";
+import { Navbar } from "../components/Navbar.tsx";
 
 export default function SupportPage(props: PageProps) {
   const title = `Support me! - bkosm`;
 
   return (
     <Fragment>
-      <a href="/">
-        <img
-          src="/logo.svg"
-          height="100px"
-          alt="the fresh logo: a sliced lemon dripping with juice"
-          class={tw`mx-auto mt-3`}
-        />
-      </a>
+      <Navbar />
       <div class={tw`relative`}>
         <Header title={title} />
 

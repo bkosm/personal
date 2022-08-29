@@ -6,10 +6,11 @@ import { PostPreview } from "../components/PostPreview.tsx";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
 import { getExtension } from "../utils/common.ts";
+import { Navbar } from "../components/Navbar.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
-    const path = `./static/posts`;
+    const path = `./static/static-posts`;
     let posts = {};
 
     for await (const f of Deno.readDir(path)) {
@@ -18,7 +19,7 @@ export const handler: Handlers = {
         posts = {
           ...posts,
           [postName]: JSON.parse(
-            await Deno.readTextFile(`${path}/${postName}.json`),
+            await Deno.readTextFile(`${path}/${postName}.json`)
           ),
         };
       }
@@ -29,17 +30,14 @@ export const handler: Handlers = {
 };
 
 export default function Home(
-  props: PageProps<{ posts: { [postName: string]: { lastUpdate: string } } }>,
+  props: PageProps<{ posts: { [postName: string]: { lastUpdate: string } } }>
 ) {
   return (
     <Fragment>
+      <Header />
+      <Navbar />
+
       <div class={tw`p-4 mx-auto max-w-screen-md`}>
-        <Header />
-        <img
-          src="/logo.svg"
-          height="100px"
-          alt="the fresh logo: a sliced lemon dripping with juice"
-        />
         <p class={tw`my-6`}>
           Personal blog page written with Fresh, should contain markdown posts
           below!

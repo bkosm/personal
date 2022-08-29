@@ -12,12 +12,13 @@ import { redirectHomeResponse } from "../../utils/errors.ts";
 import { PostStats, PostStatsInfo } from "../../components/PostStats.tsx";
 import Comments from "../../islands/Comments.tsx";
 import { formatPostName } from "../../utils/common.ts";
+import { Navbar } from "../../components/Navbar.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
     const file = new URL(req.url).pathname.split("/")[2];
-    const filename = `./static/posts/${file}.md`;
-    const metadataFile = `./static/posts/${file}.json`;
+    const filename = `./static/static-posts/${file}.md`;
+    const metadataFile = `./static/static-posts/${file}.json`;
 
     let fileContent;
     let metadataContent;
@@ -54,14 +55,7 @@ export default function PostPage(props: PageProps) {
 
   return (
     <Fragment>
-      <a href="/">
-        <img
-          src="/logo.svg"
-          height="100px"
-          alt="the fresh logo: a sliced lemon dripping with juice"
-          class={tw`mx-auto mt-3`}
-        />
-      </a>
+      <Navbar />
       <div class={tw`relative`}>
         <Header title={title} />
 
