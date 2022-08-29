@@ -49,9 +49,9 @@ export default function Home(
       <Navbar />
 
       <div class={tw`p-4 mx-auto max-w-screen-md`}>
-        <p class={tw`my-6`}>
+        <p class={tw`my-10 text-center text-justify font-mono indent-1`}>
           Personal blog page written with Fresh, should contain markdown posts
-          below!
+          below! I'll write mostly about tech & hobby stuff.
         </p>
 
         {Object.entries(props.data.posts)

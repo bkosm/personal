@@ -22,7 +22,7 @@ export function Footer() {
                 src="https://github.com/bkosm/personal/actions/workflows/pipeline.yml/badge.svg"
               />
             </a>
-          </Fragment>
+          </Fragment>,
         )}
       </div>
 

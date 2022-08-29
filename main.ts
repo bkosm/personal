@@ -10,6 +10,7 @@ import manifest from "./fresh.gen.ts";
 import { config, setup } from "@twind";
 import { virtualSheet } from "twind/sheets";
 import { CSS } from "gfm";
+import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 
 const sheet = virtualSheet();
 sheet.reset();

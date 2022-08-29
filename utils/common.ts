@@ -15,5 +15,5 @@ export function getStaticUrl(path: string): string {
     throw new Error("STATIC_DIR_ROOT is not set");
   }
 
-  return `${root}/${path}`;
+  return `${root}${path}`;
 }

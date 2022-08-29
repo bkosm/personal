@@ -38,9 +38,6 @@ deno task start
 deno test --allow-all
 ```
 
-For using env locally, create a `.env` file in the root of the project with the needed variables.
-Then prefix any needed command in terminal with `source .env && <cmd>` to pass them to the app.
-
 ---
 
 ## Generated snapshots preview
