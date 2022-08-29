@@ -29,7 +29,7 @@ export function Footer() {
       <a
         target="_blank"
         href="https://github.com/bkosm"
-        class={tw`font-semibold transition-all hover:text-gray-400`}
+        class={tw`text-xl font-semibold transition-all hover:text-gray-400`}
       >
         © bkosm
       </a>

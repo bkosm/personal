@@ -16,13 +16,13 @@ export function Navbar(props: Props) {
           src="/logo.svg"
           alt="the fresh logo: a sliced lemon dripping with juice"
           width="50vw"
-          class={tw`mx-auto`}
+          class={tw`mx-auto transition-all hover:opacity-50`}
         />
       </a>
 
       <a
         href="/support"
-        class={tw`m-auto font-semibold transition-all hover:text-gray-400`}
+        class={tw`text-lg m-auto font-semibold transition-all hover:text-gray-400`}
       >
         SUPPORT
       </a>
