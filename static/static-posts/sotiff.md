@@ -5,8 +5,6 @@ comes to _Fresh_ and how I went about using them in my website. All of the
 following is based on my experience recorded within this
 [page's repository](https://github.com/bkosm/personal).
 
----
-
 ## Unit testing
 
 Unit testing is a very important part of any software development. It's a way to
@@ -23,8 +21,6 @@ gain pretty significant confidence on those. My goal was to use visual approval
 testing as a sanity check for my actions and to make sure that I'm not breaking
 anything vital.
 
----
-
 ## Visual testing
 
 The only examples of visual testing I found were directly in the framework's
@@ -40,8 +36,6 @@ federation is what I believe the `#1` reason this framework is not ready for
 big-scale applications **yet**. We can always hack things around with e.g.
 separate linked apps, but this is a blocker in adoption by any larger company.
 
----
-
 ## Integration testing
 
 I was able to run pupeteer tests by
@@ -55,11 +49,9 @@ It's not ideal, but it works - even in the pipeline.
 > runners which do not cause issues in the matter.
 
 With Deno even such a heavy solution is not that bad. Bringing up a server and
-the _puppeteer_ takes less than 2 seconds locally. There is no reason to explain how
-to test stuff with browser emulators, but I'd like to describe how I was able to
-run visual regression tests with _Fresh_.
-
----
+the _puppeteer_ takes less than 2 seconds locally. There is no reason to explain
+how to test stuff with browser emulators, but I'd like to describe how I was
+able to run visual regression tests with _Fresh_.
 
 ## Visual regression tests
 
@@ -67,4 +59,5 @@ Continuation soon...
 
 ---
 
-Feel free to drop any questions and observations in the comments below or reach out at twitter ([@bartkosmala](https://twitter.com/bartkosmala)) 🥳!
+Feel free to drop any questions and observations in the comments below or reach
+out at twitter ([@bartkosmala](https://twitter.com/bartkosmala)) 🥳!
