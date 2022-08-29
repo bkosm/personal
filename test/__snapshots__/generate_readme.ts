@@ -9,24 +9,19 @@ for (const f of Deno.readDirSync(pathPrefix)) {
   }
 }
 
-const mapFile = (f: { name: string; path: string }) => `
-- \`${f.name}\`
+const mapFile = (f: { name: string; path: string }) =>
+  `- \`${f.name}\`
 
 ${
-  getExtension(f.name) === "snap"
-    ? `
-\`\`\`
-${Deno.readTextFileSync(f.path)}
-\`\`\`
-`
-    : `![](/${f.path})`
-}
+    getExtension(f.name) === "snap"
+      ? `\`\`\`
+${Deno.readTextFileSync(f.path)}\`\`\``
+      : `![](/${f.path})`
+  }
 `;
 
-const output = `
-# Test snapshots
+const output = `# Test snapshots
 
-${embeddableFiles.map(mapFile).join("")}
-`;
+${embeddableFiles.map(mapFile).join("\n")}`;
 
 Deno.writeTextFileSync(`${pathPrefix}/README.md`, output);
