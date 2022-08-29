@@ -1,10 +1,13 @@
-import { getExtension } from "../../utils/common.ts";
+import { getExtension, getPrefix } from "../../utils/common.ts";
 
 const pathPrefix = "test/__snapshots__";
 const embeddableFiles = [];
 
 for (const f of Deno.readDirSync(pathPrefix)) {
-  if (["png", "snap"].includes(getExtension(f.name))) {
+  if (
+    ["png", "snap"].includes(getExtension(f.name)) &&
+    ["approved", "integration"].includes(getPrefix(f.name))
+  ) {
     embeddableFiles.push({ name: f.name, path: `${pathPrefix}/${f.name}` });
   }
 }

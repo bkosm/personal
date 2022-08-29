@@ -31,4 +31,5 @@ export interface PostStatsInfo {
   lastUpdate: Date;
   bytes: number;
   name: string;
+  title: string;
 }

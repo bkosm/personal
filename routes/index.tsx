@@ -8,6 +8,12 @@ import { Footer } from "../components/Footer.tsx";
 import { getExtension } from "../utils/common.ts";
 import { Navbar } from "../components/Navbar.tsx";
 
+export type PostMeta = {
+  lastUpdate: Date;
+  creationDate: Date;
+  title: string;
+};
+
 export const handler: Handlers = {
   async GET(req, ctx) {
     const path = `./static/static-posts`;
@@ -15,16 +21,17 @@ export const handler: Handlers = {
 
     for await (const f of Deno.readDir(path)) {
       if (getExtension(f.name) === "md") {
-        const postName = f.name.split(".")[0];
-        const { lastUpdate, creationDate } = JSON.parse(
-          await Deno.readTextFile(`${path}/${postName}.json`),
+        const postId = f.name.split(".")[0];
+        const meta = JSON.parse(
+          await Deno.readTextFile(`${path}/${postId}.json`),
         );
         posts = {
           ...posts,
-          [postName]: {
-            lastUpdate: new Date(lastUpdate),
-            creationDate: new Date(creationDate),
-          },
+          [postId]: {
+            ...meta,
+            lastUpdate: new Date(meta.lastUpdate),
+            creationDate: new Date(meta.creationDate),
+          } as PostMeta,
         };
       }
     }
@@ -34,7 +41,7 @@ export const handler: Handlers = {
 };
 
 export default function Home(
-  props: PageProps<{ posts: { [postName: string]: { lastUpdate: Date } } }>,
+  props: PageProps<{ posts: { [postId: string]: PostMeta } }>,
 ) {
   return (
     <Fragment>
@@ -48,16 +55,16 @@ export default function Home(
         </p>
 
         {Object.entries(props.data.posts)
-          .filter(([name, _]) => name !== "test_page")
           .sort(
             (prev, next) =>
               next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime(),
           )
-          .map(([name, stats], i) => (
+          .map(([id, meta], i) => (
             <PostPreview
               key={`post-${i}`}
-              name={name}
-              lastModified={stats.lastUpdate}
+              postId={id}
+              name={meta.title}
+              lastModified={meta.lastUpdate}
             />
           ))}
       </div>

@@ -7,6 +7,10 @@ export const snapshot = {};
 
 snapshot[`page title 1`] = `"bkosm - fresh blog"`;
 
+snapshot[`page title 2`] = `"Test page used for automated testing - bkosm"`;
+
+snapshot[`post url 1`] = `"http://localhost:8000/posts/test"`;
+
 snapshot[`redirect url 1`] = `"http://localhost:8000/"`;
 ```
 

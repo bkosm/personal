@@ -5,17 +5,18 @@ import { formatPostName } from "../utils/common.ts";
 
 interface Props extends h.JSX.HTMLAttributes<HTMLAnchorElement> {
   name: string;
+  postId: string;
   lastModified: Date;
 }
 
 export function PostPreview(props: Props) {
   return (
     <a
-      {...props}
       class={tw`flex justify-between px-2 py-1 border(gray-100 2) transition-all hover:bg-gray-200 flex my-2`}
-      href={`/posts/${props.name}`}
+      href={`/posts/${props.postId}`}
+      {...props}
     >
-      <div>{formatPostName(props.name)}</div>
+      <div>{props.name}</div>
       <div>
         Last modified at{" "}
         <span class={tw`font-bold`}>{props.lastModified.toLocaleString()}</span>

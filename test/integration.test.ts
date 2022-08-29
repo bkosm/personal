@@ -13,10 +13,20 @@ intTest("webdriver tests", async (t, b) => {
       waitUntil: "networkidle2",
     });
 
-  // Index page
-  await open(p, "/");
+  // deno-lint-ignore no-explicit-any
+  const clickByText = async (page: any, text: string) => {
+    const linkHandlers = await page.$x(`//div[contains(text(), '${text}')]`);
 
+    if (linkHandlers.length > 0) {
+      await linkHandlers[0].click();
+    } else {
+      throw new Error(`Link not found: ${text}`);
+    }
+  };
+
+  // Index page
   await t.step("index page - has proper title", async () => {
+    await open(p, "/");
     await assertTitle(t, p);
   });
 
@@ -25,19 +35,23 @@ intTest("webdriver tests", async (t, b) => {
   });
 
   // Post page
-  await open(p, "/posts/test-page");
+  await t.step("post page - index page links redirect to posts", async () => {
+    await clickByText(p, "Test page used for automated testing");
+    await delay(100);
+    await assertTitle(t, p);
+    assertSnapshot(t, p.url(), name("post url"));
+  });
 
   await t.step("post page - visual requirements are met", async () => {
-    await delay(200);
+    await delay(500);
     await assertVisualSnapshot(p, "posts1");
     await scrollDown(p);
     await assertVisualSnapshot(p, "posts2");
   });
 
   // Invalid page
-  await open(p, "/posts/whoops-not-gonna-happen");
-
-  await t.step("invalid post page - redirects home", () => {
+  await t.step("invalid post page - redirects home", async () => {
+    await open(p, "/posts/whoops-not-gonna-happen");
     assertSnapshot(t, p.url(), name("redirect url"));
   });
 });

@@ -11,7 +11,6 @@ import { clean, init } from "https://deno.land/x/ammonia@0.3.1/mod.ts";
 import { redirectHomeResponse } from "../../utils/errors.ts";
 import { PostStats, PostStatsInfo } from "../../components/PostStats.tsx";
 import Comments from "../../islands/Comments.tsx";
-import { formatPostName } from "../../utils/common.ts";
 import { Navbar } from "../../components/Navbar.tsx";
 
 export const handler: Handlers = {
@@ -23,8 +22,8 @@ export const handler: Handlers = {
     let fileContent;
     let metadataContent;
     try {
-      fileContent = await Deno.readFile(filename);
-      metadataContent = await Deno.readFile(metadataFile);
+      fileContent = await Deno.readTextFile(filename);
+      metadataContent = await Deno.readTextFile(metadataFile);
     } catch (e) {
       if (e instanceof Deno.errors.NotFound) {
         return redirectHomeResponse();
@@ -33,16 +32,15 @@ export const handler: Handlers = {
       }
     }
 
-    const decoder = new TextDecoder("utf-8");
-    const markdown = decoder.decode(fileContent);
-    const metadata = JSON.parse(decoder.decode(metadataContent));
+    const metadata = JSON.parse(metadataContent);
+    const markup = render(fileContent);
 
-    const markup = render(markdown);
     const stats = {
       name: file,
       bytes: (await Deno.stat(filename)).size,
       creationDate: new Date(metadata.creationDate),
       lastUpdate: new Date(metadata.lastUpdate),
+      title: metadata.title,
     } as PostStatsInfo;
 
     await init();
@@ -51,7 +49,7 @@ export const handler: Handlers = {
 };
 
 export default function PostPage(props: PageProps) {
-  const title = `${formatPostName(props.params.name)} - bkosm`;
+  const title = `${props.data.stats.title} - bkosm`;
 
   return (
     <Fragment>
