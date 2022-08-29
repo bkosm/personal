@@ -1,16 +1,16 @@
 /** @jsx h */
 import { Fragment, h } from "preact";
 import { tw } from "twind";
-import { displayInProd } from "../utils/common.ts";
+import { getInProd } from "../utils/common.ts";
 
 export function Footer() {
   return (
     <footer
-      class={tw`absolute bottom-0 w-full h-30 lg:px-05 md:px-20 sm:px-16 px-10 bg-gray-900 text-center text-white font-base sm:text-base text-sm`}
+      class={tw`absolute bottom-0 w-full h-30 lg:px-05 md:px-20 sm:px-16 px-10 py-2 bg-gray-900 text-center text-white font-base sm:text-base text-sm`}
     >
       <div>
         Made with 💖 and 🍋
-        {displayInProd(
+        {getInProd(
           <Fragment>
             {", "}
             <a
@@ -22,7 +22,7 @@ export function Footer() {
                 src="https://github.com/bkosm/personal/actions/workflows/pipeline.yml/badge.svg"
               />
             </a>
-          </Fragment>,
+          </Fragment>
         )}
       </div>
 

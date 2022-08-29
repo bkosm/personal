@@ -11,6 +11,8 @@ Unit testing is a very important part of any software development. It's a way to
 make sure that your code is working as expected. It's also a way to make sure
 that your code is not broken when you make some changes to it.
 
+Ngl I played with Copilot on the previous paragraph.
+
 Deno's built in testing framework works great and is super fast. As long as you
 apply proper architecture to your frontend code, you can easily test the logic
 behind it. It's a bit different on the visual side though.

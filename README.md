@@ -20,29 +20,26 @@
 
 ## "I want to try it locally"
 
-Install puppeteer distro:
+### Install puppeteer distro
 
 ```bash
 deno task install-puppeteer
 ```
 
-Start local server:
+### Start local server
 
 ```bash
 deno task start
 ```
 
-Run all tests:
+### Run all tests
 
 ```bash
 deno test --allow-all
 ```
 
-Regenerate text-snapshots:
-
-```bash
-deno task update-snapshots
-```
+For using env locally, create a `.env` file in the root of the project with the needed variables.
+Then prefix any needed command in terminal with `source .env && <cmd>` to pass them to the app.
 
 ---
 
