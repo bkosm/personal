@@ -4,7 +4,8 @@
     "install-puppeteer": "PUPPETEER_PRODUCT=chrome deno run -A --unstable https://deno.land/x/puppeteer@14.1.1/install.ts",
     "make-env": "echo 'IS_PROD=false' >> .env",
     "update-snapshots": "deno test --allow-all -- --update && deno task update-snap-readme",
-    "update-snap-readme": "deno run --allow-all test/__snapshots__/generate_readme.ts"
+    "update-snap-readme": "deno run --allow-all test/__snapshots__/generate_readme.ts",
+    "approve-snapshots": "deno run --allow-all test/__snapshots__/approve_all.ts"
   },
   "importMap": "./import_map.json"
 }
