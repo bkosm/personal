@@ -16,11 +16,15 @@ export const handler: Handlers = {
     for await (const f of Deno.readDir(path)) {
       if (getExtension(f.name) === "md") {
         const postName = f.name.split(".")[0];
+        const { lastUpdate, creationDate } = JSON.parse(
+          await Deno.readTextFile(`${path}/${postName}.json`),
+        );
         posts = {
           ...posts,
-          [postName]: JSON.parse(
-            await Deno.readTextFile(`${path}/${postName}.json`),
-          ),
+          [postName]: {
+            lastUpdate: new Date(lastUpdate),
+            creationDate: new Date(creationDate),
+          },
         };
       }
     }
@@ -30,7 +34,7 @@ export const handler: Handlers = {
 };
 
 export default function Home(
-  props: PageProps<{ posts: { [postName: string]: { lastUpdate: string } } }>,
+  props: PageProps<{ posts: { [postName: string]: { lastUpdate: Date } } }>,
 ) {
   return (
     <Fragment>
@@ -43,13 +47,19 @@ export default function Home(
           below!
         </p>
 
-        {Object.entries(props.data.posts).map(([name, stats], i) => (
-          <PostPreview
-            key={`post-${i}`}
-            name={name}
-            lastModified={new Date(stats.lastUpdate)}
-          />
-        ))}
+        {Object.entries(props.data.posts)
+          .filter(([name, _]) => name !== "test_page")
+          .sort(
+            (prev, next) =>
+              next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime(),
+          )
+          .map(([name, stats], i) => (
+            <PostPreview
+              key={`post-${i}`}
+              name={name}
+              lastModified={stats.lastUpdate}
+            />
+          ))}
       </div>
       <Footer />
     </Fragment>

@@ -74,6 +74,7 @@ export default function PostPage(props: PageProps) {
             />
           </div>
         </article>
+
         <Footer />
       </div>
     </Fragment>
