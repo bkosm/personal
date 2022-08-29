@@ -34,7 +34,7 @@ jobs:
         if: failure()
         with:
           name: snapshots
-          path: test/snapshots
+          path: test/__snapshots__
       - uses: denoland/deployctl@v1
         with:
           project: "bkosm"
