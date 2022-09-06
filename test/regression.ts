@@ -30,7 +30,7 @@ function performVisualRegression(
   baselineImagePath: string,
   candidateImagePath: string,
   significanceThreshold = 0.5,
-  cumulatedDiffThreshold = 5200,
+  cumulatedDiffThreshold = 7000,
 ): RegressionResult {
   const pngBaseline = decode(Deno.readFileSync(baselineImagePath));
   const pngCandidate = decode(Deno.readFileSync(candidateImagePath));
@@ -51,7 +51,6 @@ function performVisualRegression(
     image: new Uint8Array(3 * width * height * 4),
   };
 
-  // Diff images with 1% threshold and minimap overlay to spot isolated changes
   const result = diff(
     pngBaseline.image,
     pngCandidate.image,
