@@ -22,6 +22,11 @@ export function getStaticUrl(path: string): string {
   return `${root}${path}`;
 }
 
+function parseDate(date: string): Date | undefined {
+  const maybeDate = new Date(date);
+  return !isNaN(maybeDate.getTime()) ? maybeDate : undefined;
+}
+
 export type PostMeta = {
   lastUpdate: Date;
   creationDate: Date;
@@ -31,13 +36,20 @@ export type PostMeta = {
 
 export type Posts = { [id: string]: PostMeta };
 
-async function loadMeta(path: string): Promise<PostMeta> {
+async function loadMeta(path: string): Promise<PostMeta | undefined> {
   const meta = JSON.parse(await Deno.readTextFile(path));
-  return {
-    ...meta,
-    lastUpdate: new Date(meta.lastUpdate),
-    creationDate: new Date(meta.creationDate),
-  } as PostMeta;
+  const creationDate = parseDate(meta.creationDate);
+  const lastUpdate = parseDate(meta.lastUpdate);
+
+  if (!creationDate || !lastUpdate) {
+    return undefined;
+  } else {
+    return {
+      ...meta,
+      lastUpdate,
+      creationDate,
+    } as PostMeta;
+  }
 }
 
 export async function loadPosts(path: string): Promise<Posts> {
@@ -49,7 +61,7 @@ export async function loadPosts(path: string): Promise<Posts> {
       const filepath = `${path}/${postId}.json`;
       posts = {
         ...posts,
-        [postId]: await loadMeta(filepath),
+        [postId]: (await loadMeta(filepath))!,
       };
     }
   }
@@ -58,13 +70,13 @@ export async function loadPosts(path: string): Promise<Posts> {
 
 export function mapPreparedPosts<T>(
   posts: Posts,
-  fn: (id: string, meta: PostMeta, index: number) => T,
+  fn: (id: string, meta: PostMeta, index: number) => T
 ): T[] {
   return Object.entries(posts)
     .filter(([_, meta], __) => meta.visible && meta.title)
     .sort(
       (prev, next) =>
-        next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime(),
+        next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime()
     )
     .map(([id, meta], i) => fn(id, meta, i));
 }
@@ -76,14 +88,14 @@ export type LoadPostResult =
 
 export async function loadPost(
   path: string,
-  file: string,
+  file: string
 ): Promise<LoadPostResult> {
   const filename = `${path}/${file}.md`;
   const metadataFile = `${path}/${file}.json`;
 
   try {
     const markup = render(await Deno.readTextFile(filename));
-    const metadata = await loadMeta(metadataFile);
+    const metadata = (await loadMeta(metadataFile))!;
 
     const stats = {
       name: file,
