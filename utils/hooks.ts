@@ -15,6 +15,8 @@ export function useWeb3Provider(): Web3Hook | undefined {
 
       if (!eth) {
         console.error("No web3 provider found");
+      } else if (!eth.isMetaMask) {
+        console.error("Currently support works only with MetaMask");
       } else {
         const web3 = new Web3(eth);
         const accounts = await web3.eth.requestAccounts();
