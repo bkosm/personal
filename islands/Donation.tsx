@@ -4,6 +4,7 @@ import { useEffect, useState } from "preact/hooks";
 import { useWeb3Provider } from "../utils/hooks.ts";
 
 export default function Donation() {
+  // deno-lint-ignore no-explicit-any
   const [res, setRes] = useState<any | undefined>(undefined);
   // const provider = useWeb3Provider();
 
