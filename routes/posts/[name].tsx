@@ -3,48 +3,29 @@ import { Fragment, h } from "preact";
 import { tw } from "@twind";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Post } from "../../components/Post.tsx";
-import { render } from "gfm";
 import { Header } from "../../components/Header.tsx";
 import { Footer } from "../../components/Footer.tsx";
-import { clean, init } from "https://deno.land/x/ammonia@0.3.1/mod.ts";
 
-import { redirectHomeResponse } from "../../utils/errors.ts";
-import { PostStats, PostStatsInfo } from "../../components/PostStats.tsx";
+import { PostStats } from "../../components/PostStats.tsx";
 import Comments from "../../islands/Comments.tsx";
 import { Navbar } from "../../components/Navbar.tsx";
+import { loadPost } from "../../utils/common.ts";
+import { omit } from "lodash";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
     const file = new URL(req.url).pathname.split("/")[2];
-    const filename = `./static/static-posts/${file}.md`;
-    const metadataFile = `./static/static-posts/${file}.json`;
+    const path = "./static/static-posts";
 
-    let fileContent;
-    let metadataContent;
-    try {
-      fileContent = await Deno.readTextFile(filename);
-      metadataContent = await Deno.readTextFile(metadataFile);
-    } catch (e) {
-      if (e instanceof Deno.errors.NotFound) {
-        return redirectHomeResponse();
-      } else {
-        throw e;
-      }
+    const res = await loadPost(path, file);
+
+    if (res.type === "not-found") {
+      return res.response;
+    } else if (res.type === "success") {
+      return ctx.render(omit(res, "type"));
+    } else {
+      throw res.error;
     }
-
-    const metadata = JSON.parse(metadataContent);
-    const markup = render(fileContent);
-
-    const stats = {
-      name: file,
-      bytes: (await Deno.stat(filename)).size,
-      creationDate: new Date(metadata.creationDate),
-      lastUpdate: new Date(metadata.lastUpdate),
-      title: metadata.title,
-    } as PostStatsInfo;
-
-    await init();
-    return ctx.render({ sanitizedMarkup: clean(markup), stats });
   },
 };
 

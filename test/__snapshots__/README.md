@@ -56,6 +56,36 @@ snapshot[`prepared posts 1`] = `
   },
 ]
 `;
+
+snapshot[`missing post result 1`] = `
+{
+  response: Response {
+  body: ReadableStream { locked: false },
+  bodyUsed: false,
+  headers: Headers { "content-type": "text/plain;charset=UTF-8", location: "/" },
+  ok: false,
+  redirected: false,
+  status: 307,
+  statusText: "",
+  url: ""
+},
+  type: "not-found",
+}
+`;
+
+snapshot[`loaded post result 1`] = `
+{
+  sanitizedMarkup: '<h1><a href="#hello-world" rel="noopener noreferrer"></a>Hello world!</h1>',
+  stats: {
+    bytes: 15,
+    creationDate: 2077-08-13T12:25:07.168Z,
+    lastUpdate: 2077-08-13T15:12:09.307Z,
+    name: "test",
+    title: "Woah",
+  },
+  type: "success",
+}
+`;
 ```
 
 - `approved.posts2.png`
