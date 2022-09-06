@@ -12,7 +12,7 @@ interface Props extends h.JSX.HTMLAttributes<HTMLAnchorElement> {
 export function PostPreview(props: Props) {
   return (
     <a
-      class={tw`flex justify-between px-2 py-1 border(gray-100 2) transition-all hover:bg-gray-200 flex my-2`}
+      class={tw`flex justify-between px-2 py-1 border(gray-100 2) transition-all hover:bg-gray-200 my-2`}
       href={`/posts/${props.postId}`}
       {...props}
     >
