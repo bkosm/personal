@@ -26,6 +26,7 @@ export type PostMeta = {
   lastUpdate: Date;
   creationDate: Date;
   title: string;
+  visible: boolean;
 };
 
 export type Posts = { [id: string]: PostMeta };
@@ -60,6 +61,7 @@ export function mapPreparedPosts<T>(
   fn: (id: string, meta: PostMeta, index: number) => T,
 ): T[] {
   return Object.entries(posts)
+    .filter(([_, meta], __) => meta.visible && meta.title)
     .sort(
       (prev, next) =>
         next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime(),

@@ -1,5 +1,5 @@
 import { loadPost, loadPosts, mapPreparedPosts } from "../utils/common.ts";
-import { assertSnapshot, name } from "./deps.ts";
+import { assert, assertSnapshot, name } from "./deps.ts";
 
 Deno.test("loading posts", async (t) => {
   const testPostPath = "./test/__resources__/posts";
@@ -21,7 +21,7 @@ Deno.test("loading posts", async (t) => {
       }));
 
       await assertSnapshot(t, prepared, name("prepared posts"));
-    },
+    }
   );
 
   await t.step("loading not existing post returns distinct error", async () => {
@@ -32,5 +32,14 @@ Deno.test("loading posts", async (t) => {
   await t.step("loading an ok post returns data", async () => {
     const res = await loadPost(testPostPath, testPostId);
     await assertSnapshot(t, res, name("loaded post result"));
+  });
+
+  await t.step("can load production posts", async () => {
+    assert(
+      mapPreparedPosts(
+        await loadPosts("./static/static-posts"),
+        (_, post, __) => post
+      ).length >= 2
+    );
   });
 });
