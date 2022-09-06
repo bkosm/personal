@@ -5,7 +5,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { PostPreview } from "../components/PostPreview.tsx";
 import { Header } from "../components/Header.tsx";
 import { Footer } from "../components/Footer.tsx";
-import { loadPosts, PostMeta } from "../utils/common.ts";
+import { loadPosts, mapPreparedPosts, PostMeta } from "../utils/common.ts";
 import { Navbar } from "../components/Navbar.tsx";
 
 export const handler: Handlers = {
@@ -29,19 +29,14 @@ export default function Home(
           below! I'll write mostly about tech & hobby stuff.
         </p>
 
-        {Object.entries(props.data.posts)
-          .sort(
-            (prev, next) =>
-              next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime(),
-          )
-          .map(([id, meta], i) => (
-            <PostPreview
-              key={`post-${i}`}
-              postId={id}
-              name={meta.title}
-              lastModified={meta.lastUpdate}
-            />
-          ))}
+        {mapPreparedPosts(props.data.posts, (id, meta, i) => (
+          <PostPreview
+            key={`post-${i}`}
+            postId={id}
+            name={meta.title}
+            lastModified={meta.lastUpdate}
+          />
+        ))}
       </div>
       <Footer />
     </Fragment>

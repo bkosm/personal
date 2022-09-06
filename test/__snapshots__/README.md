@@ -33,6 +33,29 @@ snapshot[`test posts 1`] = `
   },
 }
 `;
+
+snapshot[`prepared posts 1`] = `
+[
+  {
+    id: "another",
+    index: 0,
+    meta: {
+      creationDate: 2078-08-13T12:25:07.168Z,
+      lastUpdate: 2078-08-13T15:12:09.307Z,
+      title: "Another woah",
+    },
+  },
+  {
+    id: "test",
+    index: 1,
+    meta: {
+      creationDate: 2077-08-13T12:25:07.168Z,
+      lastUpdate: 2077-08-13T15:12:09.307Z,
+      title: "Woah",
+    },
+  },
+]
+`;
 ```
 
 - `approved.posts2.png`

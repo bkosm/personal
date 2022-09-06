@@ -24,9 +24,9 @@ export type PostMeta = {
   title: string;
 };
 
-export async function loadPosts(
-  path: string,
-): Promise<{ [id: string]: PostMeta }> {
+export type Posts = { [id: string]: PostMeta };
+
+export async function loadPosts(path: string): Promise<Posts> {
   let posts = {};
 
   for await (const f of Deno.readDir(path)) {
@@ -47,4 +47,16 @@ export async function loadPosts(
   }
 
   return posts;
+}
+
+export function mapPreparedPosts<T>(
+  posts: Posts,
+  fn: (id: string, meta: PostMeta, index: number) => T,
+): T[] {
+  return Object.entries(posts)
+    .sort(
+      (prev, next) =>
+        next[1].lastUpdate.getTime() - prev[1].lastUpdate.getTime(),
+    )
+    .map(([id, meta], i) => fn(id, meta, i));
 }
