@@ -1,4 +1,4 @@
-import { MetaMaskInpageProvider } from "https://cdn.skypack.dev/@metamask/providers?dts";
+import { MetaMaskInpageProvider } from "https://cdn.skypack.dev/@metamask/providers";
 
 declare global {
   interface Window {
