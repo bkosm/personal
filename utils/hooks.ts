@@ -1,3 +1,4 @@
+/// <reference types="../types/web3.d.ts"/>
 import { useEffect, useState } from "preact/hooks";
 import Web3 from "https://deno.land/x/web3@v0.11.1/mod.ts";
 
