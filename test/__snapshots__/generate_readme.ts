@@ -5,8 +5,8 @@ const embeddableFiles = [];
 
 for (const f of Deno.readDirSync(pathPrefix)) {
   if (
-    ["png", "snap"].includes(getExtension(f.name)) &&
-    ["approved", "integration"].includes(getPrefix(f.name))
+    (getExtension(f.name) === "png" && getPrefix(f.name) === "approved") ||
+    getExtension(f.name) === "snap"
   ) {
     embeddableFiles.push({ name: f.name, path: `${pathPrefix}/${f.name}` });
   }

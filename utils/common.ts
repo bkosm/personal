@@ -17,3 +17,34 @@ export function getStaticUrl(path: string): string {
 
   return `${root}${path}`;
 }
+
+export type PostMeta = {
+  lastUpdate: Date;
+  creationDate: Date;
+  title: string;
+};
+
+export async function loadPosts(
+  path: string,
+): Promise<{ [id: string]: PostMeta }> {
+  let posts = {};
+
+  for await (const f of Deno.readDir(path)) {
+    if (getExtension(f.name) === "md") {
+      const postId = f.name.split(".")[0];
+      const meta = JSON.parse(
+        await Deno.readTextFile(`${path}/${postId}.json`),
+      );
+      posts = {
+        ...posts,
+        [postId]: {
+          ...meta,
+          lastUpdate: new Date(meta.lastUpdate),
+          creationDate: new Date(meta.creationDate),
+        } as PostMeta,
+      };
+    }
+  }
+
+  return posts;
+}

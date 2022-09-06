@@ -14,6 +14,27 @@ snapshot[`post url 1`] = `"http://localhost:8000/posts/test"`;
 snapshot[`redirect url 1`] = `"http://localhost:8000/"`;
 ```
 
+- `common.test.ts.snap`
+
+```
+export const snapshot = {};
+
+snapshot[`test posts 1`] = `
+{
+  another: {
+    creationDate: 2078-08-13T12:25:07.168Z,
+    lastUpdate: 2078-08-13T15:12:09.307Z,
+    title: "Another woah",
+  },
+  test: {
+    creationDate: 2077-08-13T12:25:07.168Z,
+    lastUpdate: 2077-08-13T15:12:09.307Z,
+    title: "Woah",
+  },
+}
+`;
+```
+
 - `approved.posts2.png`
 
 ![](/test/__snapshots__/approved.posts2.png)
