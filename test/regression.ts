@@ -2,7 +2,7 @@ import { dirname, fromFileUrl } from "https://deno.land/std@0.57.0/path/mod.ts";
 import { decode, encode } from "https://deno.land/x/pngs@0.1.1/mod.ts";
 import { diff } from "https://cdn.skypack.dev/-/pixel-buffer-diff@v1.3.2-y6RmJylRfpwHIB6SMZMr/dist=es2019,mode=imports/optimized/pixel-buffer-diff.js";
 import { AssertionError } from "https://deno.land/std@0.150.0/testing/asserts.ts";
-import { Page } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
+import { Page } from "puppeteer";
 
 type ImageData = { image: Uint8Array; width: number; height: number };
 type RegressionResult =

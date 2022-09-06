@@ -1,6 +1,5 @@
 import { TextLineStream } from "https://deno.land/std@0.150.0/streams/delimiter.ts";
-import { Browser, Page } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
-import { default as puppeteer } from "https://deno.land/x/puppeteer@14.1.1/mod.ts";
+import { default as puppeteer, Browser, Page } from "puppeteer";
 
 type TestBody = (t: Deno.TestContext, b: Browser) => Promise<void>;
 
@@ -44,8 +43,8 @@ export function intTest(name: string, fn: TestBody) {
 
       await fn(t, browser);
 
-      await serverProcess.close();
       await browser.close();
+      serverProcess.close();
     },
     sanitizeOps: false,
     sanitizeResources: false,
@@ -61,6 +60,6 @@ export async function assertTitle(t: Deno.TestContext, page: Page) {
 
 export const name = (s: string) => ({ name: s });
 
-export const scrollDown = (p: Page): Promise<void> => {
+export const scrollDown = (p: Page): Promise<unknown> => {
   return p.evaluate("window.scrollBy(0, document.body.scrollHeight)");
 };
