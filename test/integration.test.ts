@@ -37,16 +37,15 @@ intTest("webdriver tests", async (t, b) => {
   // Post page
   await t.step("post page - index page links redirect to posts", async () => {
     await clickByText(p, "Test page used for automated testing");
-    await delay(100);
     await assertTitle(t, p);
     assertSnapshot(t, p.url(), name("post url"));
   });
 
   await t.step("post page - visual requirements are met", async () => {
-    await delay(600);
+    await delay(1000);
     await assertVisualSnapshot(p, "posts1");
-    await delay(500);
     await scrollDown(p);
+    await delay(500);
     await assertVisualSnapshot(p, "posts2");
   });
 
