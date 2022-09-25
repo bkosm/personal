@@ -50,6 +50,8 @@ export default function PostPage(props: PageProps) {
               issueName={props.data.stats.name}
               gitalkClientID={Deno.env.get("GITALK_CLIENT_ID")}
               gitalkClientSecret={Deno.env.get("GITALK_CLIENT_SECRET")}
+              gitalkCssUrl={Deno.env.get("GITALK_CSS")}
+              gitalkJsUrl={Deno.env.get("GITALK_JS")}
             />
           </div>
         </article>

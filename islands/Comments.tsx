@@ -6,6 +6,8 @@ interface Props {
   issueName: string;
   gitalkClientID?: string;
   gitalkClientSecret?: string;
+  gitalkCssUrl?: string;
+  gitalkJsUrl?: string;
 }
 
 export default function Comments(props: Props) {
@@ -13,6 +15,8 @@ export default function Comments(props: Props) {
     <Gitalk
       clientID={props.gitalkClientID ?? "1"}
       clientSecret={props.gitalkClientSecret ?? "none"}
+      cssUrl={props.gitalkCssUrl ?? "https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"}
+      jsUrl={props.gitalkJsUrl ?? "https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"}
       repo="personal"
       owner="bkosm"
       admin={["bkosm"]}
@@ -25,6 +29,8 @@ export default function Comments(props: Props) {
 export interface GitalkProps {
   clientID: string;
   clientSecret: string;
+  jsUrl: string;
+  cssUrl: string;
   repo: string;
   owner: string;
   admin: string[];
@@ -53,12 +59,12 @@ function Gitalk(props: GitalkProps) {
       <link
         id="gitalk-css"
         rel="preload"
-        href="https://cdn.pagic.org/gitalk@1.6.2/dist/gitalk.css"
+        href={props.cssUrl}
         as="style"
       />
       <script
         defer
-        src="https://cdn.pagic.org/gitalk@1.6.2/dist/gitalk.min.js"
+        src={props.jsUrl}
       />
     </Fragment>
   );
